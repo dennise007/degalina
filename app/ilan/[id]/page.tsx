@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import Logo from '@/app/components/Logo'
 import FavoriteButton from '@/app/components/FavoriteButton'
+import PhotoGallery from '@/app/components/PhotoGallery'
 
 export default async function IlanDetayPage({
   params,
@@ -67,29 +68,7 @@ export default async function IlanDetayPage({
       </header>
 
       <main className="max-w-5xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-8">
-        <div className="space-y-3">
-          {photos && photos.length > 0 ? (
-            <div className="aspect-square border-2 border-stone-900 bg-stone-200 overflow-hidden">
-              <img src={photos[0].photo_url} alt={listing.title} className="w-full h-full object-cover" />
-            </div>
-          ) : (
-            <div className="aspect-square border-2 border-stone-900 bg-stone-200 flex items-center justify-center font-mono text-xs text-stone-500">
-              Fotograf yok
-            </div>
-          )}
-
-          {photos && photos.length > 1 ? (
-            <div className="grid grid-cols-4 gap-2">
-              {photos.slice(1).map(function(p, i) {
-                return (
-                  <div key={i} className="aspect-square border-2 border-stone-900 bg-stone-200 overflow-hidden">
-                    <img src={p.photo_url} alt="" className="w-full h-full object-cover" />
-                  </div>
-                )
-              })}
-            </div>
-          ) : null}
-        </div>
+        <PhotoGallery photos={photos || []} alt={listing.title} />
 
         <div className="space-y-4">
           {isOwner ? (
