@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import Logo from '@/app/components/Logo'
+import FavoriteButton from '@/app/components/FavoriteButton'
 
 export default async function IlanDetayPage({
   params,
@@ -110,11 +111,16 @@ export default async function IlanDetayPage({
             </div>
           ) : null}
 
-          <div>
-            <p className="font-mono text-xs text-red-700 uppercase tracking-widest mb-1">
-              {listing.series} - {listing.condition}
-            </p>
-            <h1 className="text-3xl font-black leading-tight">{listing.title}</h1>
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1">
+              <p className="font-mono text-xs text-red-700 uppercase tracking-widest mb-1">
+                {listing.series} - {listing.condition}
+              </p>
+              <h1 className="text-3xl font-black leading-tight">{listing.title}</h1>
+            </div>
+            {!isOwner ? (
+              <FavoriteButton listingId={listing.id} size="lg" />
+            ) : null}
           </div>
 
           <p className="text-5xl font-black text-red-700">
