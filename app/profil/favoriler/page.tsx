@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import Logo from '@/app/components/Logo'
 import FavoriteButton from '@/app/components/FavoriteButton'
+import MessageBadge from '@/app/components/MessageBadge'
 
 export default async function FavorilerPage() {
   const supabase = await createClient()
@@ -34,9 +35,12 @@ export default async function FavorilerPage() {
           <Link href="/">
             <Logo size="md" />
           </Link>
-          <Link href="/profil" className="font-mono text-xs text-stone-700 hover:text-red-700">
-            Profilim
-          </Link>
+        <div className="flex items-center gap-3">
+  <MessageBadge />
+  <Link href="/profil" className="font-mono text-xs text-stone-700 hover:text-red-700">
+    Profilim
+  </Link>
+</div>
         </div>
       </header>
 

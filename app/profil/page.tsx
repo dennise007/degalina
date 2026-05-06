@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import DeleteListingButton from './DeleteListingButton'
 import Logo from '@/app/components/Logo'
+import MessageBadge from '@/app/components/MessageBadge'
 
 export default async function ProfilPage() {
   const supabase = await createClient()
@@ -35,6 +36,7 @@ export default async function ProfilPage() {
             <Link href="/ilan-ver" className="bg-red-700 text-white px-4 py-2 font-bold text-sm uppercase tracking-wider hover:bg-stone-900 transition border-2 border-red-700 hover:border-stone-900">
               + Ilan Ver
             </Link>
+            <MessageBadge />
             <form action="/auth/cikis" method="POST">
               <button className="font-mono text-xs text-stone-700 hover:text-red-700">
                 Cikis

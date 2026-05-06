@@ -4,6 +4,7 @@ import Logo from '@/app/components/Logo'
 import FavoriteButton from '@/app/components/FavoriteButton'
 import PhotoGallery from '@/app/components/PhotoGallery'
 import StartChatButton from '@/app/components/StartChatButton'
+import MessageBadge from '@/app/components/MessageBadge'
 
 export default async function IlanDetayPage({
   params,
@@ -62,9 +63,12 @@ export default async function IlanDetayPage({
           <Link href="/">
             <Logo size="md" />
           </Link>
-          <Link href="/" className="font-mono text-xs text-stone-700 hover:text-red-700">
-            Ana Sayfa
-          </Link>
+          <div className="flex items-center gap-3">
+            <MessageBadge />
+            <Link href="/" className="font-mono text-xs text-stone-700 hover:text-red-700">
+              Ana Sayfa
+            </Link>
+          </div>
         </div>
       </header>
 

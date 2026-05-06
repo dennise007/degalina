@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import Logo from '@/app/components/Logo'
+import MessageBadge from '@/app/components/MessageBadge'
 
 const SERIES_OPTIONS = [
   'Mainline',
@@ -39,7 +40,6 @@ const CITIES = [
 export default function IlanVerPage() {
   const router = useRouter()
   const supabase = createClient()
-
   const [title, setTitle] = useState('')
   const [casting, setCasting] = useState('')
   const [series, setSeries] = useState('Mainline')
@@ -75,7 +75,6 @@ export default function IlanVerPage() {
         return
       }
 
-      // 1) İlanı veritabanına ekle
       const { data: listing, error: insertError } = await supabase
         .from('listings')
         .insert({
@@ -98,7 +97,6 @@ export default function IlanVerPage() {
 
       if (insertError) throw insertError
 
-      // 2) Fotoğrafları yükle
       for (let i = 0; i < photos.length; i++) {
         const photo = photos[i]
         const ext = photo.name.split('.').pop()
@@ -134,12 +132,15 @@ export default function IlanVerPage() {
     <div className="min-h-screen bg-stone-100">
       <header className="bg-stone-50 border-b-4 border-stone-900">
         <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
-        <Link href="/">
-  <Logo size="md" />
-</Link>
-          <Link href="/" className="font-mono text-xs text-stone-700 hover:text-red-700">
-            ← Ana Sayfa
+          <Link href="/">
+            <Logo size="md" />
           </Link>
+          <div className="flex items-center gap-3">
+            <MessageBadge />
+            <Link href="/" className="font-mono text-xs text-stone-700 hover:text-red-700">
+              ← Ana Sayfa
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -152,7 +153,6 @@ export default function IlanVerPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* TITLE */}
           <div>
             <label className="block font-mono text-xs uppercase tracking-wider mb-1">
               Başlık <span className="text-red-700">*</span>
@@ -167,7 +167,6 @@ export default function IlanVerPage() {
             />
           </div>
 
-          {/* CASTING + YEAR */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block font-mono text-xs uppercase tracking-wider mb-1">
@@ -197,7 +196,6 @@ export default function IlanVerPage() {
             </div>
           </div>
 
-          {/* SERIES */}
           <div>
             <label className="block font-mono text-xs uppercase tracking-wider mb-1">
               Seri
@@ -211,7 +209,6 @@ export default function IlanVerPage() {
             </select>
           </div>
 
-          {/* CONDITION + WHEEL */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block font-mono text-xs uppercase tracking-wider mb-1">
@@ -240,7 +237,6 @@ export default function IlanVerPage() {
             </div>
           </div>
 
-          {/* COLOR */}
           <div>
             <label className="block font-mono text-xs uppercase tracking-wider mb-1">
               Renk
@@ -254,7 +250,6 @@ export default function IlanVerPage() {
             />
           </div>
 
-          {/* PRICE + CITY */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block font-mono text-xs uppercase tracking-wider mb-1">
@@ -286,7 +281,6 @@ export default function IlanVerPage() {
             </div>
           </div>
 
-          {/* PHONE */}
           <div>
             <label className="block font-mono text-xs uppercase tracking-wider mb-1">
               WhatsApp Numarası <span className="text-red-700">*</span>
@@ -304,7 +298,6 @@ export default function IlanVerPage() {
             </p>
           </div>
 
-          {/* DESCRIPTION */}
           <div>
             <label className="block font-mono text-xs uppercase tracking-wider mb-1">
               Açıklama
@@ -318,7 +311,6 @@ export default function IlanVerPage() {
             />
           </div>
 
-          {/* PHOTOS */}
           <div>
             <label className="block font-mono text-xs uppercase tracking-wider mb-1">
               Fotoğraflar <span className="text-red-700">*</span> (max 8)

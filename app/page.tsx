@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import Logo from './components/Logo'
+import MessageBadge from './components/MessageBadge'
 import FavoriteButton from './components/FavoriteButton'
 
 const SERIES_OPTIONS = ['Hepsi', 'Mainline', 'Treasure Hunt', 'Super Treasure Hunt', 'Premium', 'Car Culture', 'Fast & Furious', 'Vintage']
@@ -58,6 +59,7 @@ export default async function HomePage({
                 <Link href="/ilan-ver" className="bg-red-700 text-white px-4 py-2 font-bold text-sm uppercase tracking-wider hover:bg-stone-900 transition border-2 border-red-700 hover:border-stone-900">
                   + Ilan Ver
                 </Link>
+                <MessageBadge />
                 <Link href="/profil" className="text-sm font-mono text-stone-700 hover:text-red-700">
                   Profilim
                 </Link>
