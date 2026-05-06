@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import EditListingForm from './EditListingForm'
+import Logo from '@/app/components/Logo'
 
 export default async function IlanDuzenlePage({
   params,
@@ -29,9 +30,9 @@ export default async function IlanDuzenlePage({
   return (
     <div className="min-h-screen bg-stone-100">
       <header className="bg-stone-50 border-b-4 border-stone-900 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-3xl font-black text-red-700 tracking-tight">
-            DEGALINA
+        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+          <Link href="/">
+            <Logo size="md" />
           </Link>
           <Link href={'/ilan/' + id} className="font-mono text-xs text-stone-700 hover:text-red-700">
             Iptal / Geri Don

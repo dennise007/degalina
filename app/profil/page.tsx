@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import DeleteListingButton from './DeleteListingButton'
+import Logo from '@/app/components/Logo'
 
 export default async function ProfilPage() {
   const supabase = await createClient()
@@ -26,9 +27,9 @@ export default async function ProfilPage() {
   return (
     <div className="min-h-screen bg-stone-100">
       <header className="bg-stone-50 border-b-4 border-stone-900 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-3xl font-black text-red-700 tracking-tight">
-            DEGALINA
+        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+          <Link href="/">
+            <Logo size="md" />
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/ilan-ver" className="bg-red-700 text-white px-4 py-2 font-bold text-sm uppercase tracking-wider hover:bg-stone-900 transition border-2 border-red-700 hover:border-stone-900">

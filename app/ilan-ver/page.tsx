@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import Logo from '@/app/components/Logo'
 
 const SERIES_OPTIONS = [
   'Mainline',
@@ -132,10 +133,10 @@ export default function IlanVerPage() {
   return (
     <div className="min-h-screen bg-stone-100">
       <header className="bg-stone-50 border-b-4 border-stone-900">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-3xl font-black text-red-700 tracking-tight">
-            DEGALINA
-          </Link>
+        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+        <Link href="/">
+  <Logo size="md" />
+</Link>
           <Link href="/" className="font-mono text-xs text-stone-700 hover:text-red-700">
             ← Ana Sayfa
           </Link>
