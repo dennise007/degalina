@@ -102,7 +102,12 @@ export default async function ProfilPage() {
                         <p className="text-xl font-black text-red-700 leading-none">
                           {Number(listing.price).toLocaleString('tr-TR')} TL
                         </p>
-                        <DeleteListingButton listingId={listing.id} />
+                        <div className="flex gap-2 items-center">
+                          <Link href={'/ilan/' + listing.id + '/duzenle'} className="font-mono text-[10px] text-stone-700 hover:text-red-700 underline">
+                            duzenle
+                          </Link>
+                          <DeleteListingButton listingId={listing.id} />
+                        </div>
                       </div>
                     </div>
                   </div>

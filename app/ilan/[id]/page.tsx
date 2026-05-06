@@ -9,21 +9,20 @@ export default async function IlanDetayPage({
   const { id } = await params
   const supabase = await createClient()
 
-  // 1) Sadece ilanı çek
-  const { data: listing, error: listingError } = await supabase
+  const { data: { user } } = await supabase.auth.getUser()
+
+  const { data: listing } = await supabase
     .from('listings')
     .select('*')
     .eq('id', id)
     .single()
 
-  // 2) Fotoğrafları ayrı çek
-  const { data: photos, error: photosError } = await supabase
+  const { data: photos } = await supabase
     .from('listing_photos')
     .select('photo_url, position')
     .eq('listing_id', id)
     .order('position', { ascending: true })
 
-  // 3) Profili ayrı çek
   let profile = null
   if (listing) {
     const { data: profileData } = await supabase
@@ -36,14 +35,13 @@ export default async function IlanDetayPage({
 
   if (!listing) {
     return (
-      <div style={{ padding: 40, fontFamily: 'monospace' }}>
-        <h1>Debug Bilgisi</h1>
-        <p>Listing var mi: {listing ? 'EVET' : 'HAYIR'}</p>
-        <p>Listing hatasi: {listingError ? JSON.stringify(listingError) : 'yok'}</p>
-        <p>Photos hatasi: {photosError ? JSON.stringify(photosError) : 'yok'}</p>
+      <div style={{ padding: 40 }}>
+        <h1>Ilan bulunamadi</h1>
       </div>
     )
   }
+
+  const isOwner = user && user.id === listing.user_id
 
   const phoneClean = listing.contact_phone ? listing.contact_phone.replace(/\D/g, '') : ''
   let whatsappLink = ''
@@ -92,6 +90,25 @@ export default async function IlanDetayPage({
         </div>
 
         <div className="space-y-4">
+          {isOwner ? (
+            <div className="bg-amber-100 border-2 border-amber-700 p-3 flex items-center justify-between">
+              <p className="font-mono text-xs text-amber-900">
+                // Bu senin ilanin
+              </p>
+              <Link href={'/ilan/' + listing.id + '/duzenle'} className="bg-stone-900 text-stone-50 px-3 py-1 font-mono text-[10px] uppercase tracking-wider hover:bg-red-700 transition">
+                Duzenle
+              </Link>
+            </div>
+          ) : null}
+
+          {listing.status !== 'active' ? (
+            <div className="bg-red-100 border-2 border-red-700 p-3">
+              <p className="font-mono text-xs text-red-900 uppercase font-black">
+                {listing.status === 'sold' ? 'Satildi' : 'Yayindan kaldirildi'}
+              </p>
+            </div>
+          ) : null}
+
           <div>
             <p className="font-mono text-xs text-red-700 uppercase tracking-widest mb-1">
               {listing.series} - {listing.condition}
@@ -121,7 +138,7 @@ export default async function IlanDetayPage({
             </div>
           ) : null}
 
-          {whatsappLink ? (
+          {whatsappLink && listing.status === 'active' ? (
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block w-full bg-green-600 text-white py-4 text-center font-black text-sm uppercase tracking-wider hover:bg-stone-900 transition">
               WhatsApp ile Iletisime Gec
             </a>
