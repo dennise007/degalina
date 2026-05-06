@@ -55,15 +55,16 @@ export default async function ProfilPage() {
           <p className="font-mono text-xs text-stone-600">
             {user.email} - {myListings?.length ?? 0} aktif ilan
           </p>
-          <div className="mt-3">
-            <div className="flex gap-2">
-  <Link href="/profil/duzenle" className="inline-block bg-stone-900 text-stone-50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider hover:bg-red-700 transition">
-    Profili Duzenle
-  </Link>
-  <Link href="/profil/favoriler" className="inline-block bg-red-700 text-white px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider hover:bg-stone-900 transition">
-    ❤ Favorilerim
-  </Link>
-</div>
+          <div className="flex gap-2 flex-wrap mt-3">
+            <Link href="/profil/duzenle" className="inline-block bg-stone-900 text-stone-50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider hover:bg-red-700 transition">
+              Profili Duzenle
+            </Link>
+            <Link href="/profil/favoriler" className="inline-block bg-red-700 text-white px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider hover:bg-stone-900 transition">
+              ❤ Favorilerim
+            </Link>
+            <Link href="/profil/mesajlar" className="inline-block bg-stone-900 text-stone-50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider hover:bg-red-700 transition">
+              💬 Mesajlarim
+            </Link>
           </div>
         </div>
 

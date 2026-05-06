@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import Logo from '@/app/components/Logo'
 import FavoriteButton from '@/app/components/FavoriteButton'
 import PhotoGallery from '@/app/components/PhotoGallery'
+import StartChatButton from '@/app/components/StartChatButton'
 
 export default async function IlanDetayPage({
   params,
@@ -124,10 +125,19 @@ export default async function IlanDetayPage({
             </div>
           ) : null}
 
-          {whatsappLink && listing.status === 'active' ? (
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block w-full bg-green-600 text-white py-4 text-center font-black text-sm uppercase tracking-wider hover:bg-stone-900 transition">
-              WhatsApp ile Iletisime Gec
-            </a>
+          {!isOwner && listing.status === 'active' ? (
+            <div className="space-y-2">
+              <StartChatButton
+                listingId={listing.id}
+                sellerId={listing.user_id}
+                isLoggedIn={!!user}
+              />
+              {whatsappLink ? (
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block w-full bg-green-600 text-white py-4 text-center font-black text-sm uppercase tracking-wider hover:bg-stone-900 transition">
+                  WhatsApp ile Iletisime Gec
+                </a>
+              ) : null}
+            </div>
           ) : null}
         </div>
       </main>
