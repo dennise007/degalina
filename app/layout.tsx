@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     description: 'Hot Wheels, Matchbox ve diecast koleksiyonun değer bulduğu yer. Türkiye\'nin diecast alış-satış platformu.',
     images: [
       {
-        url: '/logo-square.png',
+        url: 'https://diecastsatis.com/logo-square.png',
         width: 1200,
         height: 630,
         alt: 'DS Diecast Satış',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DS Diecast Satış · Türkiye\'nin Diecast Pazarı',
     description: 'Hot Wheels koleksiyonun değer bulduğu yer.',
-    images: ['/logo-square.png'],
+    images: ['https://diecastsatis.com/logo-square.png'],
   },
   robots: {
     index: true,
