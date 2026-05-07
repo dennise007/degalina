@@ -36,7 +36,7 @@ export default async function ProfilDuzenlePage() {
           initialUsername={profile?.username || ''}
           initialFullName={profile?.full_name || ''}
           initialPhone={profile?.phone || ''}
-          initialWhatsapp={profile?.whatsapp || ''}
+          initialWhatsapp=""
           initialCity={profile?.city || ''}
           initialBio={profile?.bio || ''}
         />
