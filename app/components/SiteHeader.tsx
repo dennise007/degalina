@@ -30,15 +30,14 @@ export default function SiteHeader({ isLoggedIn }: Props) {
 
   return (
     <header
-      className="bg-stone-900 sticky top-0 z-30 border-b-4 border-red-700 transition-all duration-300"
+      className="bg-stone-900 sticky top-0 z-30 border-b-4 border-red-700 transition-all duration-300 notranslate"
+      translate="no"
       style={{ paddingTop: scrolled ? 6 : 12, paddingBottom: scrolled ? 6 : 12 }}
     >
       <div style={{ maxWidth: 1280, margin: '0 auto', paddingLeft: 12, paddingRight: 12 }}>
 
-        {/* ÜST SIRA */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
 
-          {/* Logo */}
           <Link href="/" style={{ flexShrink: 0 }}>
             <img
               src="/logo.png"
@@ -54,9 +53,10 @@ export default function SiteHeader({ isLoggedIn }: Props) {
             />
           </Link>
 
-          {/* Türkiye yazısı - sadece DESKTOP'ta logo ile nav arası */}
           {!isMobile ? (
             <p
+              translate="no"
+              className="notranslate"
               style={{
                 fontFamily: 'monospace',
                 textTransform: 'uppercase',
@@ -75,7 +75,6 @@ export default function SiteHeader({ isLoggedIn }: Props) {
             </p>
           ) : null}
 
-          {/* NAV */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
             {isLoggedIn ? (
               <>
@@ -143,9 +142,10 @@ export default function SiteHeader({ isLoggedIn }: Props) {
           </nav>
         </div>
 
-        {/* ALT SIRA - sadece MOBILE'da ve scroll edilmemişken Türkiye yazısı */}
         {isMobile && !scrolled ? (
           <p
+            translate="no"
+            className="notranslate"
             style={{
               fontFamily: 'monospace',
               textTransform: 'uppercase',
