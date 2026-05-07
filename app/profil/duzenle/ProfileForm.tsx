@@ -19,7 +19,6 @@ export default function ProfileForm({
   initialUsername,
   initialFullName,
   initialPhone,
-  initialWhatsapp,
   initialCity,
   initialBio,
 }: Props) {
@@ -28,7 +27,6 @@ export default function ProfileForm({
   const [username, setUsername] = useState(initialUsername)
   const [fullName, setFullName] = useState(initialFullName)
   const [phone, setPhone] = useState(initialPhone)
-  const [whatsapp, setWhatsapp] = useState(initialWhatsapp)
   const [city, setCity] = useState(initialCity)
   const [bio, setBio] = useState(initialBio)
   const [newPassword, setNewPassword] = useState('')
@@ -39,6 +37,13 @@ export default function ProfileForm({
     e.preventDefault()
     setLoading(true)
     setMessage(null)
+
+    const phoneClean = phone.replace(/\D/g, '')
+    if (phoneClean.length < 10 || phoneClean.length > 13) {
+      setMessage({ type: 'error', text: 'Gecerli bir telefon numarasi giriniz.' })
+      setLoading(false)
+      return
+    }
 
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
@@ -52,8 +57,7 @@ export default function ProfileForm({
       .update({
         username,
         full_name: fullName,
-        phone,
-        whatsapp,
+        phone: phoneClean,
         city,
         bio,
       })
@@ -107,7 +111,7 @@ export default function ProfileForm({
         </div>
 
         <div>
-          <label className="block font-mono text-xs uppercase tracking-wider mb-1">Kullanici Adi</label>
+          <label className="block font-mono text-xs uppercase tracking-wider mb-1">Kullanici Adi <span className="text-red-700">*</span></label>
           <input
             type="text"
             required
@@ -128,27 +132,19 @@ export default function ProfileForm({
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block font-mono text-xs uppercase tracking-wider mb-1">Telefon</label>
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="05XX XXX XX XX"
-              className="w-full bg-white border-2 border-stone-900 px-3 py-2 font-mono text-sm focus:outline-none focus:border-red-700"
-            />
-          </div>
-          <div>
-            <label className="block font-mono text-xs uppercase tracking-wider mb-1">WhatsApp</label>
-            <input
-              type="tel"
-              value={whatsapp}
-              onChange={(e) => setWhatsapp(e.target.value)}
-              placeholder="05XX XXX XX XX"
-              className="w-full bg-white border-2 border-stone-900 px-3 py-2 font-mono text-sm focus:outline-none focus:border-red-700"
-            />
-          </div>
+        <div>
+          <label className="block font-mono text-xs uppercase tracking-wider mb-1">Telefon <span className="text-red-700">*</span></label>
+          <input
+            type="tel"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="05XX XXX XX XX"
+            className="w-full bg-white border-2 border-stone-900 px-3 py-2 font-mono text-sm focus:outline-none focus:border-red-700"
+          />
+          <p className="font-mono text-[10px] text-stone-500 mt-1">
+            Telefon numaran sadece site yoneticisi tarafindan gorulebilir. Diger kullanicilara aciklanmaz.
+          </p>
         </div>
 
         <div>

@@ -12,7 +12,7 @@ export default async function ProfilDuzenlePage() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('*')
+    .select('id, username, full_name, city, bio, phone')
     .eq('id', user.id)
     .single()
 
