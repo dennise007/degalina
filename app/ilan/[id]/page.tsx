@@ -50,14 +50,6 @@ export default async function IlanDetayPage({
 
   const isOwner = user && user.id === listing.user_id
 
-  const phoneClean = listing.contact_phone ? listing.contact_phone.replace(/\D/g, '') : ''
-  let whatsappLink = ''
-  if (phoneClean) {
-    const intl = phoneClean.startsWith('0') ? '90' + phoneClean.slice(1) : phoneClean
-    const text = encodeURIComponent('Merhaba, ' + listing.title + ' ilani hakkinda bilgi almak istiyorum.')
-    whatsappLink = 'https://wa.me/' + intl + '?text=' + text
-  }
-
   return (
     <div className="min-h-screen bg-stone-100">
       <SiteHeader isLoggedIn={!!user} />
@@ -131,11 +123,9 @@ export default async function IlanDetayPage({
                   sellerId={listing.user_id}
                   isLoggedIn={!!user}
                 />
-                {whatsappLink ? (
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block w-full bg-green-600 text-white py-4 text-center font-black text-sm uppercase tracking-wider hover:bg-stone-900 transition">
-                    WhatsApp ile Iletisime Gec
-                  </a>
-                ) : null}
+                <p className="font-mono text-[10px] text-stone-500 text-center">
+                  // Guvenligin icin tum iletisim site uzerinden saglanir
+                </p>
               </div>
             ) : null}
           </div>
