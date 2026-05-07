@@ -5,6 +5,55 @@ import PhotoGallery from '@/app/components/PhotoGallery'
 import StartChatButton from '@/app/components/StartChatButton'
 import SiteHeader from '@/app/components/SiteHeader'
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const supabase = await createClient()
+
+  const { data: listing } = await supabase
+    .from('listings')
+    .select('title, description, price, casting, series, condition, city')
+    .eq('id', id)
+    .single()
+
+  const { data: photos } = await supabase
+    .from('listing_photos')
+    .select('photo_url')
+    .eq('listing_id', id)
+    .order('position', { ascending: true })
+    .limit(1)
+
+  if (!listing) {
+    return {
+      title: 'Ilan bulunamadi',
+    }
+  }
+
+  const firstPhoto = photos && photos.length > 0 ? photos[0].photo_url : '/logo-square.png'
+  const priceFormatted = Number(listing.price).toLocaleString('tr-TR')
+  const desc = (listing.description || '').slice(0, 150) || 
+    `${listing.casting || listing.title} - ${listing.series} - ${listing.condition} - ${priceFormatted} TL - ${listing.city}`
+
+  return {
+    title: `${listing.title} - ${priceFormatted} TL`,
+    description: desc,
+    openGraph: {
+      title: `${listing.title} · ${priceFormatted} TL`,
+      description: desc,
+      images: [firstPhoto],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${listing.title} · ${priceFormatted} TL`,
+      description: desc,
+      images: [firstPhoto],
+    },
+  }
+}
 export default async function IlanDetayPage({
   params,
 }: {
