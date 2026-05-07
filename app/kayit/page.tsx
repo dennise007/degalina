@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import Logo from '@/app/components/Logo'
+import SiteHeader from '@/app/components/SiteHeader'
 
 export default function KayitPage() {
   const router = useRouter()
@@ -40,16 +40,7 @@ export default function KayitPage() {
 
   return (
     <div className="min-h-screen bg-stone-100">
-      <header className="bg-stone-50 border-b-4 border-stone-900">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
-          <Link href="/">
-            <Logo size="md" />
-          </Link>
-          <Link href="/giris" className="font-mono text-xs text-stone-700 hover:text-red-700">
-            Giris
-          </Link>
-        </div>
-      </header>
+      <SiteHeader isLoggedIn={false} />
 
       <main className="max-w-md mx-auto px-4 py-12">
         <div className="mb-6 pb-3 border-b-2 border-stone-900">
@@ -74,7 +65,7 @@ export default function KayitPage() {
               minLength={3}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="dieyast_kralı"
+              placeholder="dieyast_krali"
               className="w-full bg-white border-2 border-stone-900 px-3 py-2 font-mono text-sm focus:outline-none focus:border-red-700"
             />
           </div>

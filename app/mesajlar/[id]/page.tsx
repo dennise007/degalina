@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import Logo from '@/app/components/Logo'
 import ChatRoom from './ChatRoom'
+import SiteHeader from '@/app/components/SiteHeader'
 
 export default async function SohbetPage({
   params,
@@ -64,16 +64,15 @@ export default async function SohbetPage({
 
   return (
     <div className="min-h-screen bg-stone-100 flex flex-col">
-      <header className="bg-stone-50 border-b-4 border-stone-900 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
-          <Link href="/">
-            <Logo size="md" />
-          </Link>
+      <SiteHeader isLoggedIn={true} />
+
+      <div className="bg-stone-50 border-b-2 border-stone-900">
+        <div className="max-w-3xl mx-auto px-4 py-2">
           <Link href="/profil/mesajlar" className="font-mono text-xs text-stone-700 hover:text-red-700">
             ← Sohbetler
           </Link>
         </div>
-      </header>
+      </div>
 
       {listing ? (
         <Link

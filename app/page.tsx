@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import Logo from './components/Logo'
-import MessageBadge from './components/MessageBadge'
 import FavoriteButton from './components/FavoriteButton'
+import SiteHeader from './components/SiteHeader'
 
 const SERIES_OPTIONS = ['Hepsi', 'Mainline', 'Treasure Hunt', 'Super Treasure Hunt', 'Premium', 'Car Culture', 'Fast & Furious', 'Vintage']
 const CONDITIONS = ['Hepsi', 'MOC', 'MIB', 'Loose']
@@ -48,52 +47,13 @@ export default async function HomePage({
 
   return (
     <div className="min-h-screen bg-stone-100">
-      <header className="bg-stone-50 border-b-4 border-stone-900 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
-          <Link href="/">
-            <Logo size="md" />
-          </Link>
-          <nav className="flex items-center gap-3">
-            {user ? (
-              <>
-                <Link href="/ilan-ver" className="bg-red-700 text-white px-4 py-2 font-bold text-sm uppercase tracking-wider hover:bg-stone-900 transition border-2 border-red-700 hover:border-stone-900">
-                  + Ilan Ver
-                </Link>
-                <MessageBadge />
-                <Link href="/profil" className="text-sm font-mono text-stone-700 hover:text-red-700">
-                  Profilim
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link href="/giris" className="text-sm font-mono text-stone-700 hover:text-red-700">
-                  Giris
-                </Link>
-                <Link href="/kayit" className="bg-stone-900 text-stone-50 px-4 py-2 font-bold text-sm uppercase tracking-wider hover:bg-red-700 transition">
-                  Kayit Ol
-                </Link>
-              </>
-            )}
-          </nav>
-        </div>
-      </header>
-
-      <section className="bg-stone-900 text-stone-50 py-0">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <p className="text-xs font-mono text-amber-400 uppercase tracking-widest mb-2">
-            // Turkiye'nin Diecast Pazari
-          </p>
-          <h1 className="text-4xl md:text-5xl font-black mb-4">
-            Hot Wheels koleksiyonun deger buldugu yer.
-          </h1>
-          <p className="font-mono text-sm text-stone-400">
-            {listings?.length ?? 0} aktif ilan
-          </p>
-        </div>
-      </section>
+      <SiteHeader isLoggedIn={!!user} />
 
       <section className="bg-stone-50 border-b-2 border-stone-900 py-4">
         <div className="max-w-7xl mx-auto px-4">
+          <p className="font-mono text-xs text-stone-600 mb-3">
+            <span className="text-red-700 font-bold">{listings?.length ?? 0}</span> aktif ilan
+          </p>
           <form action="/" method="GET" className="space-y-3">
             <div className="flex gap-2">
               <input
@@ -124,10 +84,10 @@ export default async function HomePage({
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6 pb-3 border-b-2 border-stone-900">
+      <main className="max-w-7xl mx-auto px-4 py-6">
+        <div className="flex items-center justify-between mb-4 pb-2 border-b-2 border-stone-900">
           <h2 className="text-xl font-black uppercase">
-            {q ? 'Arama Sonuclari' : 'Son Ilanlar'}
+            {q ? 'Arama Sonuçları' : 'Son İlanlar'}
           </h2>
         </div>
 

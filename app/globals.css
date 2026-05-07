@@ -16,3 +16,61 @@
 body {
   background: #f5f5f4;
 }
+
+/* DS Logo Alev Titreşim Animasyonu */
+@keyframes flame-flicker {
+  0%, 100% {
+    filter: brightness(1) contrast(1) saturate(1);
+    transform: scale(1);
+  }
+  25% {
+    filter: brightness(1.05) contrast(1.05) saturate(1.1);
+    transform: scale(1.005);
+  }
+  50% {
+    filter: brightness(0.98) contrast(1.02) saturate(0.95);
+    transform: scale(1);
+  }
+  75% {
+    filter: brightness(1.08) contrast(1.08) saturate(1.15);
+    transform: scale(1.008);
+  }
+}
+
+@keyframes flame-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(249, 115, 22, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.5));
+  }
+}
+
+.logo-flame {
+  transition: transform 0.3s ease;
+  animation: flame-glow-pulse 3s ease-in-out infinite;
+}
+
+.logo-flame img {
+  animation: flame-flicker 2.5s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.logo-flame:hover img {
+  animation-duration: 0.8s;
+  transform: scale(1.03);
+}
+
+.logo-flame:hover {
+  animation-duration: 0.8s;
+}
+
+/* Mobile için animasyon performansı */
+@media (max-width: 640px) {
+  .logo-flame {
+    animation-duration: 4s;
+  }
+  .logo-flame img {
+    animation-duration: 3s;
+  }
+}

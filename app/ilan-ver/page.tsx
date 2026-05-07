@@ -4,8 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import Logo from '@/app/components/Logo'
-import MessageBadge from '@/app/components/MessageBadge'
+import SiteHeader from '@/app/components/SiteHeader'
 
 const SERIES_OPTIONS = [
   'Mainline',
@@ -130,23 +129,14 @@ export default function IlanVerPage() {
 
   return (
     <div className="min-h-screen bg-stone-100">
-      <header className="bg-stone-50 border-b-4 border-stone-900">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
-          <Link href="/">
-            <Logo size="md" />
-          </Link>
-          <div className="flex items-center gap-3">
-            <MessageBadge />
-            <Link href="/" className="font-mono text-xs text-stone-700 hover:text-red-700">
-              ← Ana Sayfa
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SiteHeader isLoggedIn={true} />
 
       <main className="max-w-3xl mx-auto px-4 py-8">
         <div className="mb-6 pb-3 border-b-2 border-stone-900">
-          <p className="font-mono text-xs text-red-700 uppercase tracking-widest mb-2">
+          <Link href="/" className="font-mono text-xs text-stone-700 hover:text-red-700 mb-2 inline-block">
+            ← Ana Sayfa
+          </Link>
+          <p className="font-mono text-xs text-red-700 uppercase tracking-widest mb-2 mt-2">
             // Yeni İlan
           </p>
           <h1 className="text-3xl font-black uppercase">İlan Ver</h1>
